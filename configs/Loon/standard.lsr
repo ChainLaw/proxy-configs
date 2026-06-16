@@ -64,6 +64,7 @@ FINAL, 兜底后备策略
 [Remote Rule]
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list, policy=兜底后备策略, tag=APNs, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Majsoul/Majsoul.list, policy=DIRECT, tag=Majsoul, enabled=true
+https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/Supercell.list, policy=DIRECT, tag=Supercell, enabled=true
 https://rule.kelee.one/Loon/Telegram.lsr, policy=兜底后备策略, tag=Telegram, enabled=true
 https://kelee.one/Tool/Loon/Lsr/TikTok.lsr, policy=美国手动策略, tag=TikTok, enabled=false
 https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=美国手动策略, tag=AI, enabled=true
