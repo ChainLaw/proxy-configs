@@ -1,4 +1,4 @@
-# ============================== Loon Standard Config ==============================
+# ============================== Loon Game Config ==============================
 [General]
 ip-mode = v4-only
 ipv6-vif = off
@@ -52,7 +52,7 @@ MajsoulMax = HTTP,xxx.com,23410
 日本自动选择 = url-test,日本节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 新加坡自动选择 = url-test,新加坡节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 美国自动选择 = url-test,美国节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
-低倍自动选择 = url-test,低倍节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+低倍自动选择 = url-test,低倍节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 
 # 兜底策略后备
 兜底后备策略 = fallback,低倍自动选择,香港自动选择,台湾自动选择,日本自动选择,新加坡自动选择,美国自动选择,interval = 60,max-timeout = 2000,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png

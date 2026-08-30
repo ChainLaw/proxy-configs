@@ -38,7 +38,7 @@
 5. 添加订阅，并在 `更多` - `设置` 中开启 `始终开启`；
 6. 一键更新所有外部资源，完成后重新启动 Loon。
 
-### Sparkle / FlClash
+### Sparkle / FlClash / ClashMetaForAndroid
 
 导入 `mihomo/full.yaml` 即可。
 
