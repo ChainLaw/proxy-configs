@@ -9,6 +9,7 @@
 | Linux / Windows | [mihomo 裸核](https://github.com/MetaCubeX/mihomo) |
 | iOS / iPadOS | [Loon](https://nsloon.com/) |
 | macOS | [Sparkle](https://github.com/xishang0128/sparkle) / [FlClash](https://github.com/chen08209/FlClash) |
+| Android | [FlClash](https://github.com/chen08209/FlClash) / [ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid) |
 
 ## 配置
 

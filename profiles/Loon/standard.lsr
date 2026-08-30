@@ -1,0 +1,192 @@
+# ============================== Loon Standard Config ==============================
+[General]
+ip-mode = v4-only
+ipv6-vif = off
+dns-server = system
+sni-sniffing = true
+disable-stun = true
+dns-reject-mode = LoopbackIP
+domain-reject-mode = DNS
+udp-fallback-mode = REJECT
+wifi-access-http-port = 7222
+wifi-access-socks5-port = 7221
+allow-wifi-access = false
+interface-mode = auto
+test-timeout = 5
+disconnect-on-policy-change = false
+internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
+proxy-test-url = https://cp.cloudflare.com/generate_204
+resource-parser = https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
+geoip-url = https://geodata.kelee.one/Country-Masaiki.mmdb
+ipasn-url = https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
+skip-proxy = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local, e.crashlynatics.com
+bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 255.255.255.255/32
+
+[Proxy]
+
+[Remote Proxy]
+
+[Remote Filter]
+香港节点 = NameRegex, FilterKey = "(?i)香港|\bHK\b|Hongkong|Hong Kong|🇭🇰"
+台湾节点 = NameRegex, FilterKey = "(?i)台湾|臺灣|\bTW\b|Taiwan|🇹🇼"
+日本节点 = NameRegex, FilterKey = "(?i)日本|\bJP\b|Japan|🇯🇵"
+新加坡节点 = NameRegex, FilterKey = "(?i)新加坡|狮城|\bSG\b|Singapore|🇸🇬"
+美国节点 = NameRegex, FilterKey = "(?i)美国|\bUS\b|UnitedStates|United States|🇺🇸"
+全部节点 = NameRegex, FilterKey = ".*"
+低倍节点 = NameRegex, FilterKey = "\b0\.\d+"
+
+[Proxy Group]
+# 手动选择策略组
+香港手动选择 = select,香港节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+台湾手动选择 = select,台湾节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+日本手动选择 = select,日本节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+新加坡手动选择 = select,新加坡节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+美国手动选择 = select,美国节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+低倍手动选择 = select,低倍节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/SpeedTest.png
+全球手动选择 = select,全部节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+
+# 自动选择策略组
+香港自动选择 = url-test,香港节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+台湾自动选择 = url-test,台湾节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+日本自动选择 = url-test,日本节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+新加坡自动选择 = url-test,新加坡节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+美国自动选择 = url-test,美国节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+低倍自动选择 = url-test,低倍节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+
+# 兜底策略后备
+兜底后备策略 = fallback,低倍自动选择,香港自动选择,台湾自动选择,日本自动选择,新加坡自动选择,美国自动选择,interval = 60,max-timeout = 2000,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+
+[Rule]
+FINAL, 兜底后备策略
+
+[Remote Rule]
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list, policy=DIRECT, tag=WeChat, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list, policy=兜底后备策略, tag=APNs, enabled=true
+https://rule.kelee.one/Loon/Telegram.lsr, policy=兜底后备策略, tag=Telegram, enabled=true
+https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=美国自动选择, tag=AI, enabled=true
+https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER.lsr, policy=DIRECT, tag=LAN, enabled=true
+https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
+
+[Host]
+
+[Rewrite]
+
+[Script]
+
+[Plugin]
+# --- 基础 ---
+https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, pin=true, enabled=true
+https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, pin=true, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx, pin=true, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Google.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QuickSearch.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Prevent_DNS_Leaks.lpx, policy=兜底后备策略, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Node_detection_tool.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/TestFlightRegionUnlock.lpx, policy=DIRECT, enabled=false
+https://kelee.one/Tool/Loon/Lpx/BoxJs.lpx, policy=兜底后备策略, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Sub-Store.lpx, policy=兜底后备策略, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, policy=兜底后备策略, enabled=true
+
+# --- 购物 ---
+https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/ZhuanZhuan_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Dewu_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/SF-Express_remove_ads.lpx, enabled=true
+
+# --- 社交媒体 ---
+# 聊天
+https://kelee.one/Tool/Loon/Lpx/QQ_Redirect.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/TelegramRedirect.lpx, pin=true, enabled=true
+# 社区
+https://kelee.one/Tool/Loon/Lpx/Weibo_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Tieba_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/DouBan_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/CoolApk_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/XiaoHeiHe_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/smzdm_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/HUPU_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Reddit_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Line_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/miHoYoBBS_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/KuroBBS_remove_ads.lpx, enabled=true
+
+# --- 影音娱乐 ---
+# 视频流媒体
+https://kelee.one/Tool/Loon/Lpx/Bilibili_remove_ads.lpx, policy=DIRECT, pin=true, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Tencent_Video_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/YouKu_Video_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Douyu_remove_ads.lpx, enabled=true
+# 音乐电台
+https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx, pin=true, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/KuGou_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Kuwo_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QQKSong_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Himalaya_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/CatEarFM_remove_ads.lpx, enabled=true
+# 漫画阅读
+https://kelee.one/Tool/Loon/Lpx/BiliComic_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/KuaiKanComic_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/ZongHeng_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/SevenCat_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/ShuQiCenterReader_remove_ads.lpx, enabled=true
+
+# --- 生活 ---
+# 天气
+https://kelee.one/Tool/Loon/Lpx/AppleWeatherEnhancer.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MojiWeather_remove_ads.lpx, enabled=true
+# 出行票务
+https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/DiDi_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/12306_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Damai_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Taopiaopiao_remove_ads.lpx, enabled=true
+# 日常软件
+https://kelee.one/Tool/Loon/Lpx/XiaoCan_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Beike_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/AutoHome_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/JiaKaoBaoDian_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/NeteaseNews_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Keep_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MeetYou_remove_ads.lpx, enabled=true
+
+# --- 工具 ---
+# 文档
+https://kelee.one/Tool/Loon/Lpx/TXDocs_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/WPS_Documents_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/BaiduWenku_remove_ads.lpx, enabled=true
+# 网盘
+https://kelee.one/Tool/Loon/Lpx/BaiduNetDisk_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/AliYunDrive_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QuarkBrowser_remove_ads.lpx, enabled=true
+# 招聘
+https://kelee.one/Tool/Loon/Lpx/ZhiLianZhaoPin_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/51Job_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MaiMai_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/FenBi_remove_ads.lpx, enabled=true
+# 其他
+https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/YoudaoDict_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MailMaster_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Aiinquiry_remove_ads.lpx, enabled=true
+
+[Mitm]
+hostname =
+skip-server-cert-verify = true

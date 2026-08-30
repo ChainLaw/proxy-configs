@@ -1,4 +1,4 @@
-# ============================== Mihomo Full Config ==============================
+# ============================== Mihomo Standard Config ==============================
 # ============================== 代理配置 ==============================
 common: &common
   type: http
@@ -33,13 +33,6 @@ proxies:
   #     public-key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   #     short-id: xxxxxxxx
   #   client-fingerprint: chrome
-
-  # MajsoulMax 本地节点，如部署到 VPS 则替换为服务器地址
-  - name: MajsoulMax
-    type: http
-    server: 127.0.0.1
-    port: 23410
-    tls: true
 
 proxy-providers:
   provider1:
@@ -155,37 +148,36 @@ dns:
 
 
 # **=============================== 代理组设置 ===============================**
-hk-filter: &hk-filter '(?i)香港|HK|Hongkong|Hong Kong|🇭🇰'
-tw-filter: &tw-filter '(?i)台湾|臺灣|TW|Taiwan|🇹🇼'
-jp-filter: &jp-filter '(?i)日本|JP|Japan|🇯🇵'
-sg-filter: &sg-filter '(?i)新加坡|狮城|SG|Singapore|🇸🇬'
-us-filter: &us-filter '(?i)美国|US|UnitedStates|United States|🇺🇸'
-uk-filter: &uk-filter '(?i)英国|UK|United Kingdom|🇬🇧'
-all-filter: &all-filter '^(?!.*(?i)MajsoulMax)'
-other-filter: &other-filter '^(?!.*(?i)(香港|HK|Hongkong|Hong Kong|🇭🇰|台湾|臺灣|TW|Taiwan|🇹🇼|日本|JP|Japan|🇯🇵|新加坡|狮城|SG|Singapore|🇸🇬|美国|US|UnitedStates|United States|🇺🇸|英国|UK|United Kingdom|🇬🇧|MajsoulMax))'
-home-filter: &home-filter '(?i)家宽|HOME|Family'
+hk-filter: &hk-filter '(?i)香港|\bHK\b|Hongkong|Hong Kong|🇭🇰'
+tw-filter: &tw-filter '(?i)台湾|臺灣|\bTW\b|Taiwan|🇹🇼'
+jp-filter: &jp-filter '(?i)日本|\bJP\b|Japan|🇯🇵'
+sg-filter: &sg-filter '(?i)新加坡|狮城|\bSG\b|Singapore|🇸🇬'
+us-filter: &us-filter '(?i)美国|\bUS\b|UnitedStates|United States|🇺🇸'
+uk-filter: &uk-filter '(?i)英国|\bUK\b|United Kingdom|🇬🇧'
+all-filter: &all-filter '.*'
+other-filter: &other-filter '^(?!.*(?i)(香港|\bHK\b|Hongkong|Hong Kong|🇭🇰|台湾|臺灣|\bTW\b|Taiwan|🇹🇼|日本|\bJP\b|Japan|🇯🇵|新加坡|狮城|\bSG\b|Singapore|🇸🇬|美国|\bUS\b|UnitedStates|United States|🇺🇸|英国|\bUK\b|United Kingdom|🇬🇧))'
+home-filter: &home-filter '(?i)家宽|\bHOME\b|Family'
 lowrate-filter: &lowrate-filter '\b0\.\d+'
 
 UrlTest: &UrlTest { type: url-test, url: https://cp.cloudflare.com/generate_204, disable-udp: false, hidden: true, interval: 300, lazy: true, tolerance: 50, timeout: 2000, max-failed-times: 3 }
 FallBack: &FallBack { type: fallback, url: https://cp.cloudflare.com/generate_204, disable-udp: false, hidden: true, interval: 300, lazy: true, timeout: 2000, max-failed-times: 3 }
 
 proxy-groups:
-  - { name: PROXY, type: select, proxies: [♻️ 自动选择, 🌐 全部节点, ⚡️ 低倍节点, 🏠 家宽节点, 🛠️ 自建节点, 🛡️ 故障转移, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇸 美国节点, 🇬🇧 英国节点, 🌍 其他节点, AUTO] }
+  - { name: PROXY, type: select, proxies: [♻️ 自动选择, 🌐 全部节点, ⚡️ 低倍节点, 🏠 家宽节点, 🛠️ 自建节点, 🛡️ 故障转移, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 新加坡节点, 🇺🇸 美国节点, 🇬🇧 英国节点, 🌍 其他节点] }
 
-  - { name: AUTO, <<: *UrlTest, include-all: true }
   - { name: 🇭🇰 香港自动选择, <<: *UrlTest, filter: *hk-filter, include-all: true }
   - { name: 🇹🇼 台湾自动选择, <<: *UrlTest, filter: *tw-filter, include-all: true }
   - { name: 🇯🇵 日本自动选择, <<: *UrlTest, filter: *jp-filter, include-all: true }
   - { name: 🇸🇬 新加坡自动选择, <<: *UrlTest, filter: *sg-filter, include-all: true }
   - { name: 🇺🇸 美国自动选择, <<: *UrlTest, filter: *us-filter, include-all: true }
-  - { name: 🇬🇧 英国自动选择, <<: *UrlTest, filter: *uk-filter, include-all: true }
+  - { name: ⚡️ 低倍自动选择, <<: *UrlTest, filter: *lowrate-filter, include-all: true }
 
-  - { name: ♻️ 自动选择, type: select, proxies: [🇭🇰 香港自动选择, 🇹🇼 台湾自动选择, 🇯🇵 日本自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国自动选择, 🇬🇧 英国自动选择, AUTO] }
+  - { name: ♻️ 自动选择, type: select, proxies: [🇭🇰 香港自动选择, 🇹🇼 台湾自动选择, 🇯🇵 日本自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国自动选择, ⚡️ 低倍自动选择] }
   - { name: 🌐 全部节点, type: select, filter: *all-filter, include-all: true }
   - { name: 🏠 家宽节点, type: select, filter: *home-filter, include-all: true }
-  - { name: ⚡️ 低倍节点, type: select, filter: *lowrate-filter, include-all: true }
   - { name: 🛠️ 自建节点, type: select, filter: *all-filter, include-all-proxies: true }
-  - { name: 🛡️ 故障转移, <<: *FallBack, proxies: [🇭🇰 香港自动选择, 🇹🇼 台湾自动选择, 🇯🇵 日本自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国自动选择, 🇬🇧 英国自动选择] }
+  - { name: ⚡️ 低倍节点, type: select, filter: *lowrate-filter, include-all: true }
+  - { name: 🛡️ 故障转移, <<: *FallBack, proxies: [⚡️ 低倍自动选择, 🇭🇰 香港自动选择, 🇹🇼 台湾自动选择, 🇯🇵 日本自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国自动选择, 🛠️ 自建节点] }
 
   - { name: 🇭🇰 香港节点, type: select, filter: *hk-filter, include-all: true }
   - { name: 🇹🇼 台湾节点, type: select, filter: *tw-filter, include-all: true }
@@ -195,15 +187,13 @@ proxy-groups:
   - { name: 🇬🇧 英国节点, type: select, filter: *uk-filter, include-all: true }
   - { name: 🌍 其他节点, type: select, filter: *other-filter, include-all: true }
 
-  - { name: AI, type: select, proxies: [🇺🇸 美国自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国节点, 🇸🇬 新加坡节点, PROXY] }
-  - { name: Onedrive, type: select, proxies: [DIRECT, PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择] }
-  - { name: Microsoft, type: select, proxies: [DIRECT, PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择] }
-  - { name: Google, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择, 🇭🇰 香港节点, 🇺🇸 美国节点] }
-  - { name: Telegram, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择, 🇬🇧 英国自动选择] }
-  - { name: Steam, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇯🇵 日本自动选择, 🇺🇸 美国自动选择, 🌍 其他节点] }
-  - { name: ACGN, type: select, proxies: [🇯🇵 日本自动选择, 🇭🇰 香港自动选择, PROXY] }
-  - { name: Streaming, type: select, proxies: [🇺🇸 美国自动选择, 🇸🇬 新加坡自动选择, 🇯🇵 日本自动选择, 🇭🇰 香港自动选择, ⚡️ 低倍节点, PROXY] }
-  - { name: Majsoul, type: select, proxies: [DIRECT, PROXY, MajsoulMax] }
+  - { name: AI, type: select, proxies: [PROXY, 🇺🇸 美国自动选择, 🇸🇬 新加坡自动选择, 🇺🇸 美国节点, 🇸🇬 新加坡节点, 🛠️ 自建节点] }
+  - { name: Onedrive, type: select, proxies: [DIRECT, PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择, 🛠️ 自建节点] }
+  - { name: Microsoft, type: select, proxies: [DIRECT, PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择, 🛠️ 自建节点] }
+  - { name: Google, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇺🇸 美国自动选择, 🇭🇰 香港节点, 🇺🇸 美国节点, 🛠️ 自建节点] }
+  - { name: Telegram, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇯🇵 日本自动选择, 🇬🇧 英国节点, 🛠️ 自建节点] }
+  - { name: Steam, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇯🇵 日本自动选择, 🌍 其他节点, 🛠️ 自建节点] }
+  - { name: ACGN, type: select, proxies: [PROXY, 🇭🇰 香港自动选择, 🇯🇵 日本自动选择, 🛠️ 自建节点] }
 
 
 # **=============================== 规则设置 ===============================**
@@ -220,31 +210,17 @@ rules:
   - RULE-SET,apple_cn,DIRECT
 
   - RULE-SET,bilibili,DIRECT
-  - RULE-SET,youtube,Streaming
-  - RULE-SET,tiktok,Streaming
-  - RULE-SET,netflix,Streaming
-  - RULE-SET,bahamut,🇹🇼 台湾节点
   - RULE-SET,steam_cn,DIRECT
   - RULE-SET,steam,Steam
   - RULE-SET,ehentai,ACGN
   - RULE-SET,pixiv,ACGN
+  - RULE-SET,bahamut,🇹🇼 台湾节点
   - RULE-SET,dlsite,🇯🇵 日本节点
-
-  - AND,((OR,((PROCESS-NAME-REGEX,(?i)python.*),(PROCESS-NAME,MajsoulMax.exe))),(OR,((DOMAIN-KEYWORD,majsoul),(DOMAIN-KEYWORD,maj-soul),(DOMAIN-KEYWORD,mahjongsoul),(DOMAIN-KEYWORD,catmjstudio)))),DIRECT
-  - DOMAIN-SUFFIX,mahjongsoul.club,PROXY
-  - PROCESS-NAME,Jantama_MahjongSoul.exe,Majsoul
-  - PROCESS-NAME,雀魂麻將.exe,Majsoul
-  - DOMAIN-KEYWORD,majsoul,Majsoul
-  - DOMAIN-KEYWORD,maj-soul,Majsoul
-  - DOMAIN-KEYWORD,mahjongsoul,Majsoul
-  - DOMAIN-KEYWORD,catmjstudio,Majsoul
 
   - RULE-SET,cn,DIRECT
   - RULE-SET,geolocation-!cn,PROXY
 
   - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,netflix_ip,Streaming,no-resolve
-  - RULE-SET,telegram_ip,PROXY,no-resolve
   - RULE-SET,cn_ip,DIRECT,no-resolve
 
   - MATCH,PROXY
@@ -273,10 +249,6 @@ rule-providers:
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs" }
 
   bilibili: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bilibili.mrs" }
-  youtube: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs" }
-  tiktok: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs" }
-  netflix: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs" }
-  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs" }
   bahamut: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bahamut.mrs" }
   steam_cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs" }
   steam: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs" }

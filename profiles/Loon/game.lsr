@@ -28,47 +28,46 @@ MajsoulMax = HTTP,xxx.com,23410
 [Remote Proxy]
 
 [Remote Filter]
-香港节点 = NameRegex, FilterKey = "(?i)香港|HK|Hongkong|Hong Kong|🇭🇰"
-台湾节点 = NameRegex, FilterKey = "(?i)台湾|臺灣|TW|Taiwan|🇹🇼"
-日本节点 = NameRegex, FilterKey = "(?i)日本|JP|Japan|🇯🇵"
-新加坡节点 = NameRegex, FilterKey = "(?i)新加坡|狮城|SG|Singapore|🇸🇬"
-美国节点 = NameRegex, FilterKey = "(?i)美国|US|UnitedStates|United States|🇺🇸"
-全球节点 = NameRegex, FilterKey = "^(?!.*(?i)MajsoulMax)"
+香港节点 = NameRegex, FilterKey = "(?i)香港|\bHK\b|Hongkong|Hong Kong|🇭🇰"
+台湾节点 = NameRegex, FilterKey = "(?i)台湾|臺灣|\bTW\b|Taiwan|🇹🇼"
+日本节点 = NameRegex, FilterKey = "(?i)日本|\bJP\b|Japan|🇯🇵"
+新加坡节点 = NameRegex, FilterKey = "(?i)新加坡|狮城|\bSG\b|Singapore|🇸🇬"
+美国节点 = NameRegex, FilterKey = "(?i)美国|\bUS\b|UnitedStates|United States|🇺🇸"
+全部节点 = NameRegex, FilterKey = ".*"
+低倍节点 = NameRegex, FilterKey = "\b0\.\d+"
 
 [Proxy Group]
-# 手动策略组
-香港手动策略 = select,香港节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
-台湾手动策略 = select,台湾节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
-日本手动策略 = select,日本节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
-新加坡手动策略 = select,新加坡节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
-美国手动策略 = select,美国节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
-全球手动策略 = select,全球节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
-# --------------------------------
+# 手动选择策略组
+香港手动选择 = select,香港节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+台湾手动选择 = select,台湾节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+日本手动选择 = select,日本节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+新加坡手动选择 = select,新加坡节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+美国手动选择 = select,美国节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+低倍手动选择 = select,低倍节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/SpeedTest.png
+全球手动选择 = select,全部节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+
 # 自动选择策略组
 香港自动选择 = url-test,香港节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 台湾自动选择 = url-test,台湾节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 日本自动选择 = url-test,日本节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 新加坡自动选择 = url-test,新加坡节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
 美国自动选择 = url-test,美国节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
-# --------------------------------
+低倍自动选择 = url-test,低倍节点,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Auto.png
+
 # 兜底策略后备
-兜底后备策略 = fallback,香港自动选择,台湾自动选择,日本自动选择,新加坡自动选择,美国自动选择,interval = 60,max-timeout = 2000,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+兜底后备策略 = fallback,低倍自动选择,香港自动选择,台湾自动选择,日本自动选择,新加坡自动选择,美国自动选择,interval = 60,max-timeout = 2000,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
 
 [Rule]
-# 当配置文件中没有任何有效策略组时，Loon 将使用内置的 PROXY 策略组
-# 当配置文件中存在有效的策略组时，内置的 PROXY 策略组将不再允许被调用，仅可使用用户配置的策略组
-# 配置文件已自带远程 GEOIP, cn, DIRECT 规则，请勿在此添加
-# 请勿修改远程 CN REGION 规则的排序甚至删除
 FINAL, 兜底后备策略
 
 [Remote Rule]
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list, policy=DIRECT, tag=WeChat, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list, policy=兜底后备策略, tag=APNs, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Majsoul/Majsoul.list, policy=DIRECT, tag=Majsoul, enabled=true
-https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/Supercell.list, policy=DIRECT, tag=Supercell, enabled=true
 https://rule.kelee.one/Loon/Telegram.lsr, policy=兜底后备策略, tag=Telegram, enabled=true
-https://kelee.one/Tool/Loon/Lsr/TikTok.lsr, policy=美国手动策略, tag=TikTok, enabled=false
-https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=美国手动策略, tag=AI, enabled=true
-https://kelee.one/Tool/Loon/Lsr/SpeedtestInternational.lsr, policy=全球手动策略, tag=Speedtest Intl, enabled=true
+https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=美国自动选择, tag=AI, enabled=true
+https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulCN.list, policy=DIRECT, tag=MajsoulCN, enabled=true
+https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulJP.list, policy=PROXY, tag=MajsoulJP, enabled=true
+https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/Supercell.list, policy=PROXY, tag=Supercell, enabled=true
 https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER.lsr, policy=DIRECT, tag=LAN, enabled=true
 https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 
@@ -104,29 +103,24 @@ https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/SF-Express_remove_ads.lpx, enabled=true
 
 # --- 社交媒体 ---
-# 微信
+# 聊天
+https://kelee.one/Tool/Loon/Lpx/QQ_Redirect.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/TelegramRedirect.lpx, pin=true, enabled=true
 # 社区
 https://kelee.one/Tool/Loon/Lpx/Weibo_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/Weibo_intl_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Tieba_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/DouBan_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/CoolApk_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/XiaoHeiHe_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/MoeGirlWiki_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/smzdm_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/HUPU_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/DuiTang_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/UnnooQuan_remove_watermark.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/ZuiYou_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/PiPiXia_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Reddit_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Line_remove_ads.lpx, enabled=true
-# MiKu
 https://kelee.one/Tool/Loon/Lpx/miHoYoBBS_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/KuroBBS_remove_ads.lpx, enabled=true
 
@@ -138,7 +132,6 @@ https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/YouKu_Video_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/KuaiShou_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Douyu_remove_ads.lpx, enabled=true
 # 音乐电台
 https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx, pin=true, enabled=true
@@ -148,12 +141,12 @@ https://kelee.one/Tool/Loon/Lpx/Kuwo_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/QQKSong_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Himalaya_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/CatEarFM_remove_ads.lpx, enabled=true
-# 漫画
+# 漫画阅读
 https://kelee.one/Tool/Loon/Lpx/BiliComic_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/KuaiKanComic_remove_ads.lpx, enabled=true
-# 阅读
 https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/ZongHeng_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/SevenCat_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/ShuQiCenterReader_remove_ads.lpx, enabled=true
 
