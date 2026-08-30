@@ -272,8 +272,8 @@ rule-providers:
   pixiv: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/pixiv.mrs" }
   dlsite: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/dlsite.mrs" }
 
-  MajsoulCN: { <<: *classical, url: "  https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulCN.list" }
-  MajsoulJP: { <<: *classical, url: "  https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulJP.list" }
+  MajsoulCN: { <<: *classical, url: "https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulCN.list" }
+  MajsoulJP: { <<: *classical, url: "https://raw.githubusercontent.com/ChainLaw/proxy-configs/refs/heads/main/rules/MajsoulJP.list" }
 
   cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
