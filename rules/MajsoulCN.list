@@ -1,8 +1,8 @@
 # NAME: MajsoulCN
 # AUTHOR: ChainLaw
 # REPO: https://github.com/ChainLaw/proxy-configs
-# UPDATED: 2026-06-16
-# DOMAIN: 10
+# UPDATED: 2026-08-31
+# DOMAIN: 7
 
 DOMAIN-SUFFIX,game.maj-soul.com
 DOMAIN-SUFFIX,route-2.maj-soul.com
@@ -10,7 +10,4 @@ DOMAIN-SUFFIX,route-3.maj-soul.com
 DOMAIN-SUFFIX,route-4.maj-soul.com
 DOMAIN-SUFFIX,route-5.maj-soul.com
 DOMAIN-SUFFIX,route-6.maj-soul.com
-DOMAIN-SUFFIX,app-update-1.catmjstudio.com
-DOMAIN-SUFFIX,app-update-2.catmjstudio.com
-DOMAIN-SUFFIX,app-update-1.catmajsoul.com
 DOMAIN-SUFFIX,majsoul-hk-client.cn-hongkong.log.aliyuncs.com

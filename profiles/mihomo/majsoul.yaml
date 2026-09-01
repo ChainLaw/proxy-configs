@@ -227,8 +227,9 @@ rules:
   - RULE-SET,dlsite,🇯🇵 日本节点
 
   - AND,((OR,((PROCESS-NAME-REGEX,(?i)python.*),(PROCESS-NAME,MajsoulMax.exe))),(OR,((DOMAIN-KEYWORD,majsoul),(DOMAIN-KEYWORD,maj-soul),(DOMAIN-KEYWORD,mahjongsoul),(DOMAIN-KEYWORD,catmjstudio)))),DIRECT
-  - PROCESS-NAME,雀魂麻將.exe,MajsoulCN
-  - PROCESS-NAME,Jantama_MahjongSoul.exe,MajsoulJP
+  - DOMAIN-SUFFIX,app-update-1.catmjstudio.com,DIRECT
+  - DOMAIN-SUFFIX,app-update-2.catmjstudio.com,DIRECT
+  - DOMAIN-SUFFIX,app-update-1.catmajsoul.com,DIRECT
   - RULE-SET,MajsoulCN,MajsoulCN
   - RULE-SET,MajsoulJP,MajsoulJP
 
