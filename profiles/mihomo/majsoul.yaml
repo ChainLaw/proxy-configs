@@ -226,7 +226,7 @@ rules:
   - RULE-SET,bahamut,🇹🇼 台湾节点
   - RULE-SET,dlsite,🇯🇵 日本节点
 
-  - AND,((OR,((PROCESS-NAME-REGEX,(?i)python.*),(PROCESS-NAME,MajsoulMax.exe))),(OR,((DOMAIN-KEYWORD,majsoul),(DOMAIN-KEYWORD,maj-soul),(DOMAIN-KEYWORD,mahjongsoul),(DOMAIN-KEYWORD,catmjstudio)))),DIRECT
+  - DOMAIN-SUFFIX,tenhou.net,🇯🇵 日本自动选择
   - DOMAIN-SUFFIX,app-update-1.catmjstudio.com,DIRECT
   - DOMAIN-SUFFIX,app-update-2.catmjstudio.com,DIRECT
   - DOMAIN-SUFFIX,app-update-1.catmajsoul.com,DIRECT
